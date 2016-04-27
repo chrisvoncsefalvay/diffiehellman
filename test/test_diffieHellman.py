@@ -37,3 +37,10 @@ class TestDiffieHellman(TestCase):
     def test_generate_public_key(self):
         self.alice.generate_public_key()
         self.assertIn("public_key", self.alice.__dict__)
+
+    def test_verify_public_key(self):
+        self.alice.generate_public_key()
+        self.bob.generate_public_key()
+        self.assertTrue(self.alice.verify_public_key(self.bob.public_key))
+        self.assertFalse(self.alice.verify_public_key(2))
+        self.assertFalse(self.alice.verify_public_key(self.alice.prime - 1))

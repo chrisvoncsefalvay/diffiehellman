@@ -42,6 +42,9 @@ class DiffieHellman:
 
         self.private_key = key
 
+    def verify_public_key(self, other_public_key):
+        return self.prime - 1 > other_public_key > 2 and pow(other_public_key, (self.prime - 1) // 2, self.prime) == 1
+
     @requires_private_key
     def generate_public_key(self):
         self.public_key = pow(self.generator,
