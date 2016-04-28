@@ -13,6 +13,7 @@ from hashlib import sha256
 from ssl import RAND_bytes
 
 from .decorators import requires_private_key
+from .exceptions import MalformedPublicKey
 from .primes import PRIMES
 
 rng = RAND_bytes
@@ -42,6 +43,9 @@ class DiffieHellman:
 
         self.private_key = key
 
+    def verify_public_key(self, other_public_key):
+        return self.prime - 1 > other_public_key > 2 and pow(other_public_key, (self.prime - 1) // 2, self.prime) == 1
+
     @requires_private_key
     def generate_public_key(self):
         self.public_key = pow(self.generator,
@@ -50,6 +54,9 @@ class DiffieHellman:
 
     @requires_private_key
     def generate_shared_secret(self, other_public_key):
+        if self.verify_public_key(other_public_key) is False:
+            raise MalformedPublicKey
+
         self.shared_secret = pow(other_public_key,
                                  self.private_key,
                                  self.prime)
