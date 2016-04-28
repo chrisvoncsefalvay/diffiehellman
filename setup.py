@@ -29,7 +29,10 @@ setup(
         'Programming Language :: Python',
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: MIT',
+        'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
+        'Topic :: Security :: Cryptography',
+        'Topic :: Software Development :: Libraries'
+
     ]
 )

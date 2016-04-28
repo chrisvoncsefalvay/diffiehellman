@@ -6,12 +6,15 @@
 """
 test_diffieHellman tests the DiffieHellman class.
 """
-from unittest import TestCase
 
+import sys
+import os
+sys.path.append(os.path.join('..', 'diffiehellman'))
+import unittest
 from diffiehellman.diffiehellman import DiffieHellman
 
 
-class TestDiffieHellman(TestCase):
+class TestDiffieHellman(unittest.TestCase):
     def setUp(self):
         self.alice = DiffieHellman()
         self.bob = DiffieHellman()
@@ -44,3 +47,7 @@ class TestDiffieHellman(TestCase):
         self.assertTrue(self.alice.verify_public_key(self.bob.public_key))
         self.assertFalse(self.alice.verify_public_key(2))
         self.assertFalse(self.alice.verify_public_key(self.alice.prime - 1))
+
+
+if __name__ == '__main__':
+    unittest.main()

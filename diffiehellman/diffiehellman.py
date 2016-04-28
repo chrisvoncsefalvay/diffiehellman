@@ -33,17 +33,14 @@ __version__ = '0.13.1'
 from hashlib import sha256
 
 from .decorators import requires_private_key
-from .exceptions import MalformedPublicKey
+from .exceptions import MalformedPublicKey, RNGError
 from .primes import PRIMES
 
 try:
     from ssl import RAND_bytes
-
     rng = RAND_bytes
 except(AttributeError, ImportError):
-    from OpenSSL import rand
-
-    rng = rand.bytes
+    RNGError
 
 
 class DiffieHellman:
@@ -118,5 +115,5 @@ class DiffieHellman:
 
         self.shared_key = _h.hexdigest()
 
-        if return_key is True:
+        if echo_return_key is True:
             return self.shared_key
