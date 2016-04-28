@@ -1,5 +1,5 @@
 # diffiehellman
-![https://travis-ci.org/chrisvoncsefalvay/diffiehellman.svg?branch=master] 
+![Travis-CI](https://travis-ci.org/chrisvoncsefalvay/diffiehellman.svg?branch=master) 
 
 The Python Diffie-Hellman key exchange library.
 
