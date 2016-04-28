@@ -14,7 +14,7 @@ def requires_private_key(func):
     """
 
     def func_wrapper(self, *args, **kwargs):
-        if hasattr(self, "private_key"):
+        if hasattr(self, "_DiffieHellman__private_key"):
             func(self, *args, **kwargs)
         else:
             self.generate_private_key()

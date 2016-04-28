@@ -10,13 +10,19 @@ diffiehellmann declares the main key exchange class.
 __version__ = '0.13.1'
 
 from hashlib import sha256
-from ssl import RAND_bytes
 
 from .decorators import requires_private_key
 from .exceptions import MalformedPublicKey
 from .primes import PRIMES
 
-rng = RAND_bytes
+try:
+    from ssl import RAND_bytes
+
+    rng = RAND_bytes
+except(AttributeError, ImportError):
+    from OpenSSL import rand
+
+    rng = rand.bytes
 
 
 class DiffieHellman:
@@ -33,6 +39,11 @@ class DiffieHellman:
         self.prime = PRIMES[group]["prime"]
 
     def generate_private_key(self):
+        """
+        Generates a private key of key_length bits and attaches it to the object as the __private_key variable.
+        :return: void
+        :rtype: void
+        """
         key_length = self.key_length // 8 + 8
         key = 0
 
@@ -41,7 +52,7 @@ class DiffieHellman:
         except:
             key = int(hex(rng(key_length)), base=16)
 
-        self.private_key = key
+        self.__private_key = key
 
     def verify_public_key(self, other_public_key):
         return self.prime - 1 > other_public_key > 2 and pow(other_public_key, (self.prime - 1) // 2, self.prime) == 1
@@ -49,7 +60,7 @@ class DiffieHellman:
     @requires_private_key
     def generate_public_key(self):
         self.public_key = pow(self.generator,
-                              self.private_key,
+                              self.__private_key,
                               self.prime)
 
     @requires_private_key
@@ -58,7 +69,7 @@ class DiffieHellman:
             raise MalformedPublicKey
 
         self.shared_secret = pow(other_public_key,
-                                 self.private_key,
+                                 self.__private_key,
                                  self.prime)
 
         shared_secret_as_bytes = self.shared_secret.to_bytes(self.shared_secret.bit_length() // 8 + 1, byteorder='big')

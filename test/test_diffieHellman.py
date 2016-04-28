@@ -28,11 +28,11 @@ class TestDiffieHellman(TestCase):
 
     def test_decorators_private_key(self):
         self.alice.generate_public_key()
-        self.assertIn("private_key", self.alice.__dict__)
+        self.assertIn("_DiffieHellman__private_key", self.alice.__dict__)
 
     def test_generate_private_key(self):
         self.alice.generate_private_key()
-        self.assertIn("private_key", self.alice.__dict__)
+        self.assertIn("_DiffieHellman__private_key", self.alice.__dict__)
 
     def test_generate_public_key(self):
         self.alice.generate_public_key()
