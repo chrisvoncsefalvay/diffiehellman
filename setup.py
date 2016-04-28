@@ -23,7 +23,7 @@ setup(
     author='Chris von Csefalvay',
     author_email='chris@chrisvoncsefalvay.com',
     description='A Pythonic implementation of the Diffie-Hellman key exchange protocol',
-    download_url='https://github.com/chrisvoncsefalvay/diffiehellman/tarball/v0.13.1',
+    download_url='https://github.com/chrisvoncsefalvay/diffiehellman/tarball/v0.13.3',
     platforms='any',
     classifiers=[
         'Programming Language :: Python',

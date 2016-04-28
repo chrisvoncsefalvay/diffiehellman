@@ -28,7 +28,7 @@
 diffiehellmann declares the main key exchange class.
 """
 
-__version__ = '0.13.1'
+__version__ = '0.13.3'
 
 from hashlib import sha256
 
@@ -40,7 +40,7 @@ try:
     from ssl import RAND_bytes
     rng = RAND_bytes
 except(AttributeError, ImportError):
-    RNGError
+    raise RNGError
 
 
 class DiffieHellman:
