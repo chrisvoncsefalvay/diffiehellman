@@ -17,7 +17,7 @@ def read(*filenames, **kwargs):
 setup(
     name='diffiehellman',
     version=__version__,
-    packages=[''],
+    packages=['diffiehellman'],
     url='http://www.github.com/chrisvoncsefalvay/diffiehellman',
     license='MIT',
     author='Chris von Csefalvay',
