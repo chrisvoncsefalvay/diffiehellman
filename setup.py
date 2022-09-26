@@ -1,6 +1,6 @@
 # coding=utf-8
 import io
-from distutils.core import setup
+from setuptools import setup
 from diffiehellman.diffiehellman import __version__
 
 # Shamelessly stolen from Jeff Knupp.
